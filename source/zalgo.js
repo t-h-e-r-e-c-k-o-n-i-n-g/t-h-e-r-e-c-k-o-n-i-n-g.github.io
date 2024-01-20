@@ -181,12 +181,27 @@ for (let i = 0; i<randomZalgoElements.length; i++) {
 	let item = randomZalgoElements[i];
 	let origItemData = new String(item.innerText);
 	setInterval(()=>{
-		if (getRandomInt(20) > 11) {
-			item.innerText = zalgoRandomGeneration(randomRepeat(origItemData), 5);
+		if (item.id == "deadtext") {
+			if (getRandomInt(15) > 12) {
+				origItemData = origItemData.replace("i", "we");
+				origItemData = origItemData.replace("am", "are");
+			} else if (getRandomInt(12)>8) {
+				origItemData = origItemData.replace("we", "i");
+				origItemData = origItemData.replace("are", "am");
+			}
+			if (getRandomInt(20) > 11) {
+				item.innerText = randomRepeat(origItemData);
+			} else {
+				item.innerText = origItemData;
+			}
 		} else {
-			item.innerText = origItemData;
+			if (getRandomInt(20) > 11) {
+				item.innerText = zalgoRandomGeneration(randomRepeat(origItemData), 5);
+			} else {
+				item.innerText = origItemData;
+			}
 		}
-	},getRandomInt(200)+200);
+	},getRandomInt(400)+200);
 }
 
 const randomZalgoElements2 = Array.from(document.querySelectorAll("title")); //yes
@@ -200,5 +215,5 @@ for (let i = 0; i<randomZalgoElements2.length; i++) {
 			item.innerText = origItemData;
 		}
 		document.reload(); //this makes it work despite this not even being a function??
-	},getRandomInt(200)+200);
+	},getRandomInt(400)+200);
 }
