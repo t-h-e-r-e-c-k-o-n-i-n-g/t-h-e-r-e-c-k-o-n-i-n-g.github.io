@@ -156,11 +156,49 @@ const zalgoGeneration = (text, zalgoUpCount, zalgoMidCount, zalgoDownCount) => {
 
 const zalgoRandomGeneration = (text, zalgoCount) => zalgoGeneration(text, getRandomInt(zalgoCount), getRandomInt(zalgoCount), getRandomInt(zalgoCount));
 
+
+function randomRepeat(text) {
+	let newText = [];
+	for (let i = 0; i<text.length; i++) {
+		if (getRandomInt(15)>7) {
+			newText.push(text[i].toUpperCase());
+		} else {
+			newText.push(text[i].toLowerCase());
+		}
+		if (getRandomInt(10)>5) {
+			if (getRandomInt(15)>7) {
+				newText.push(text[i].toUpperCase());
+			} else {
+				newText.push(text[i].toLowerCase());
+			}
+		}
+	}
+	return newText.join("");
+}
+
 const randomZalgoElements = Array.from(document.querySelectorAll(".random-zalgo"));
 for (let i = 0; i<randomZalgoElements.length; i++) {
 	let item = randomZalgoElements[i];
-	let origItemData = item.innerText;
+	let origItemData = new String(item.innerText);
 	setInterval(()=>{
-		item.innerText = zalgoRandomGeneration(origItemData, 5);
-	},getRandomInt(3000)+1000);
+		if (getRandomInt(20) > 11) {
+			item.innerText = zalgoRandomGeneration(randomRepeat(origItemData), 5);
+		} else {
+			item.innerText = origItemData;
+		}
+	},getRandomInt(200)+200);
+}
+
+const randomZalgoElements2 = Array.from(document.querySelectorAll("title")); //yes
+for (let i = 0; i<randomZalgoElements2.length; i++) {
+	let item = randomZalgoElements2[i];
+	let origItemData = new String(item.innerText);
+	setInterval(()=>{
+		if (getRandomInt(20) > 11) {
+			item.innerText = zalgoRandomGeneration(randomRepeat(origItemData), 5);
+		} else {
+			item.innerText = origItemData;
+		}
+		document.reload(); //this makes it work despite this not even being a function??
+	},getRandomInt(200)+200);
 }
